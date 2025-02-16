@@ -2,6 +2,7 @@ import './style.css'
 import * as THREE from 'three'
 import gsap from 'gsap'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
+import { RectAreaLightHelper } from 'three/addons/helpers/RectAreaLightHelper.js'
 import GUI from 'lil-gui'
 
 // Debug
@@ -39,10 +40,54 @@ const scene = new THREE.Scene()
  * a cena ficará estranha, pois a luz aplicada é de uma omnilateral.
  * Ou seja, a luz é aplicada em tudo, como se estivesse aplicando o BasicMaterial.
  */
-const ambientLight = new THREE.AmbientLight()
-ambientLight.color = new THREE.Color(0xffffff)
-ambientLight.intensity = 1
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5)
 scene.add(ambientLight)
+
+const directionalLight = new THREE.DirectionalLight(0x00fffc, 0.9)
+directionalLight.position.set(1, 0.25, 0)
+scene.add(directionalLight)
+
+const hemisphereLight = new THREE.HemisphereLight(0xff0000, 0x0000ff, 0.3)
+scene.add(hemisphereLight)
+
+const pointerLight = new THREE.PointLight(0xff9000, 1.5, 10, 2)
+pointerLight.position.set(1, -0.5, 1)
+scene.add(pointerLight)
+
+const rectAreaLight = new THREE.RectAreaLight(0x4e00ff, 6, 1, 1)
+rectAreaLight.position.set(-1.5, 0, 1.5)
+rectAreaLight.lookAt(new THREE.Vector3())
+scene.add(rectAreaLight)
+
+const spotLight = new THREE.SpotLight(0x78ff00, 4.5, 10, Math.PI * 0.1, 0.25, 1)
+spotLight.position.set(0, 2, 3)
+scene.add(spotLight)
+
+spotLight.target.position.x = -0.75
+scene.add(spotLight.target)
+
+gui.add(spotLight, 'penumbra').min(0).max(1).step(0.01)
+gui.add(spotLight.target.position, 'x').min(-2).max(2).step(0.01)
+
+// Helpers Lights
+const hemisphereLightHelper = new THREE.HemisphereLightHelper(hemisphereLight, 0.2)
+scene.add(hemisphereLightHelper)
+
+const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 0.2)
+scene.add(directionalLightHelper)
+
+const pointerLightHelper = new THREE.PointLightHelper(pointerLight, 0.2)
+scene.add(pointerLightHelper)
+
+const spotLightHelper = new THREE.SpotLightHelper(spotLight)
+scene.add(spotLightHelper)
+
+window.requestAnimationFrame(() => {
+    spotLightHelper.update()
+})
+
+const rectAreaLightHelper = new RectAreaLightHelper(rectAreaLight)
+scene.add(rectAreaLightHelper)
 
 // Material
 const material = new THREE.MeshStandardMaterial()
@@ -129,7 +174,7 @@ const clock = new THREE.Clock()
 const tick = () => {
     const elapsedTime = clock.getElapsedTime()
 
-    // cubeGeometry.rotation.y = 0.15 * elapsedTime
+    cubeGeometry.rotation.y = 0.15 * elapsedTime
 
     // Atualização do controle
     controls.update()
