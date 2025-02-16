@@ -33,12 +33,41 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 
+//Lights
+
+
+// Material
+const material = new THREE.MeshStandardMaterial()
+material.roughness = 0.4
+
+const sphereGeometry = new THREE.Mesh(
+    new THREE.SphereGeometry(0.5, 32, 32),
+    material
+)
+sphereGeometry.position.x = -1.5
+
 const cubeGeometry = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 1, 1),
-    new THREE.MeshBasicMaterial()
+    new THREE.BoxGeometry(0.75, 0.75, 0.75),
+    material
 )
 
+const torusGeometry = new THREE.Mesh(
+    new THREE.TorusGeometry(0.3, 0.2, 32, 64),
+    material
+)
+torusGeometry.position.x = 1.5
+
+const plane = new THREE.Mesh(
+    new THREE.PlaneGeometry(5, 5),
+    material
+)
+plane.rotateX(-Math.PI * 0.5)
+plane.position.y = -0.65
+
+scene.add(plane)
+scene.add(sphereGeometry)
 scene.add(cubeGeometry)
+scene.add(torusGeometry)
 
 // Sizes
 const sizes = {
@@ -63,7 +92,9 @@ window.addEventListener('resize', () => {
 // Camera
 const aspecRatio = sizes.width / sizes.height
 const camera = new THREE.PerspectiveCamera(75, aspecRatio, 0.1, 100)
-camera.position.z = 3
+camera.position.x = 1
+camera.position.y = 1
+camera.position.z = 2
 camera.lookAt(cubeGeometry.position)
 scene.add(camera)
 
@@ -90,7 +121,7 @@ const clock = new THREE.Clock()
 const tick = () => {
     const elapsedTime = clock.getElapsedTime()
 
-    cubeGeometry.rotation.y = 0.15 * elapsedTime
+    // cubeGeometry.rotation.y = 0.15 * elapsedTime
 
     // Atualização do controle
     controls.update()
