@@ -34,7 +34,13 @@ const canvas = document.querySelector('canvas.webgl')
 const scene = new THREE.Scene()
 
 //Lights
-
+/**
+ * Se adicionarmo somente o AmbientLight
+ * a cena ficará estranha, pois a luz aplicada é de uma omnilateral.
+ * Ou seja, a luz é aplicada em tudo, como se estivesse aplicando o BasicMaterial.
+ */
+const ambientLight = new THREE.AmbientLight(0xffffff, 1)
+scene.add(ambientLight)
 
 // Material
 const material = new THREE.MeshStandardMaterial()
