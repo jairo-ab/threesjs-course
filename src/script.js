@@ -30,15 +30,11 @@ window.addEventListener('mousemove', (event) => {
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
+// Textures
+const textureLoader = new THREE.TextureLoader()
+
 // Scene
 const scene = new THREE.Scene()
-
-const cubeGeometry = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 1, 1),
-    new THREE.MeshBasicMaterial()
-)
-
-scene.add(cubeGeometry)
 
 // Sizes
 const sizes = {
@@ -64,7 +60,6 @@ window.addEventListener('resize', () => {
 const aspecRatio = sizes.width / sizes.height
 const camera = new THREE.PerspectiveCamera(75, aspecRatio, 0.1, 100)
 camera.position.z = 3
-camera.lookAt(cubeGeometry.position)
 scene.add(camera)
 
 // Controls
@@ -89,8 +84,6 @@ const clock = new THREE.Clock()
 //Animations
 const tick = () => {
     const elapsedTime = clock.getElapsedTime()
-
-    cubeGeometry.rotation.y = 0.15 * elapsedTime
 
     // Atualização do controle
     controls.update()
