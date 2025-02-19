@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import GUI from 'lil-gui'
 import { Timer } from 'three/examples/jsm/Addons.js'
+import { Sky } from 'three/addons/objects/Sky.js'
 
 // Debug
 const gui = new GUI({
@@ -54,11 +55,11 @@ const loaderTexture = new THREE.TextureLoader(loadingManager)
 // Textura do chão (floor)
 // Importante: Quando se usa Alpha, é preciso informar que o material
 // suporta transparência
-const alphaFloorTexture = loaderTexture.load('/textures/floor/alpha.jpg')
-const normalFloorTexture = loaderTexture.load('/textures/floor/coast_sand_rocks_02_1k/coast_sand_rocks_02_nor_gl_1k.jpg')
-const armFloorTexture = loaderTexture.load('/textures/floor/coast_sand_rocks_02_1k/coast_sand_rocks_02_arm_1k.jpg')
-const colorFloorTexture = loaderTexture.load('/textures/floor/coast_sand_rocks_02_1k/coast_sand_rocks_02_diff_1k.jpg')
-const displacementFloorTexture = loaderTexture.load('/textures/floor/coast_sand_rocks_02_1k/coast_sand_rocks_02_disp_1k.jpg')
+const alphaFloorTexture = loaderTexture.load('/textures/floor/alpha.webp')
+const normalFloorTexture = loaderTexture.load('/textures/floor/coast_sand_rocks_02_1k/coast_sand_rocks_02_nor_gl_1k.webp')
+const armFloorTexture = loaderTexture.load('/textures/floor/coast_sand_rocks_02_1k/coast_sand_rocks_02_arm_1k.webp')
+const colorFloorTexture = loaderTexture.load('/textures/floor/coast_sand_rocks_02_1k/coast_sand_rocks_02_diff_1k.webp')
+const displacementFloorTexture = loaderTexture.load('/textures/floor/coast_sand_rocks_02_1k/coast_sand_rocks_02_disp_1k.webp')
 
 colorFloorTexture.colorSpace = THREE.SRGBColorSpace
 
@@ -83,13 +84,13 @@ displacementFloorTexture.wrapT = THREE.RepeatWrapping
 // displacementBias: -0.2
 
 // Textura da parede (wall)
-// const colorWallMossyBrick = loaderTexture.load('/textures/wall/mossy_brick_1k/mossy_brick_diff_1k.jpg')
-// const armWallMossyBrick = loaderTexture.load('/textures/wall/mossy_brick_1k/mossy_brick_arm_1k.jpg')
-// const normalWallMossyBrick = loaderTexture.load('/textures/wall/mossy_brick_1k/mossy_brick_arm_1k.jpg')
+// const colorWallMossyBrick = loaderTexture.load('/textures/wall/mossy_brick_1k/mossy_brick_diff_1k.webp')
+// const armWallMossyBrick = loaderTexture.load('/textures/wall/mossy_brick_1k/mossy_brick_arm_1k.webp')
+// const normalWallMossyBrick = loaderTexture.load('/textures/wall/mossy_brick_1k/mossy_brick_arm_1k.webp')
 
-const colorWallMossyBrick = loaderTexture.load('/textures/wall/castle_brick_broken_06_1k/castle_brick_broken_06_diff_1k.jpg')
-const armWallMossyBrick = loaderTexture.load('/textures/wall/castle_brick_broken_06_1k/castle_brick_broken_06_arm_1k.jpg')
-const normalWallMossyBrick = loaderTexture.load('/textures/wall/castle_brick_broken_06_1k/castle_brick_broken_06_nor_gl_1k.jpg')
+const colorWallMossyBrick = loaderTexture.load('/textures/wall/castle_brick_broken_06_1k/castle_brick_broken_06_diff_1k.webp')
+const armWallMossyBrick = loaderTexture.load('/textures/wall/castle_brick_broken_06_1k/castle_brick_broken_06_arm_1k.webp')
+const normalWallMossyBrick = loaderTexture.load('/textures/wall/castle_brick_broken_06_1k/castle_brick_broken_06_nor_gl_1k.webp')
 
 colorWallMossyBrick.colorSpace = THREE.SRGBColorSpace
 
@@ -106,9 +107,9 @@ armWallMossyBrick.wrapT = THREE.RepeatWrapping
 normalWallMossyBrick.wrapT = THREE.RepeatWrapping
 
 // Telhado da casa (roof)
-const colorRoofTexture = loaderTexture.load('/textures/roof/roof_slates_02_1k/roof_slates_02_diff_1k.jpg')
-const armRoofTexture = loaderTexture.load('/textures/roof/roof_slates_02_1k/roof_slates_02_arm_1k.jpg')
-const normalRoofTexture = loaderTexture.load('/textures/roof/roof_slates_02_1k/roof_slates_02_nor_gl_1k.jpg')
+const colorRoofTexture = loaderTexture.load('/textures/roof/roof_slates_02_1k/roof_slates_02_diff_1k.webp')
+const armRoofTexture = loaderTexture.load('/textures/roof/roof_slates_02_1k/roof_slates_02_arm_1k.webp')
+const normalRoofTexture = loaderTexture.load('/textures/roof/roof_slates_02_1k/roof_slates_02_nor_gl_1k.webp')
 
 colorRoofTexture.colorSpace = THREE.SRGBColorSpace
 
@@ -121,9 +122,9 @@ armRoofTexture.wrapS = THREE.RepeatWrapping
 normalRoofTexture.wrapS = THREE.RepeatWrapping
 
 // Arbustos (Bush)
-const colorBushTexture = loaderTexture.load('/textures/bush/leaves_forest_ground_1k/leaves_forest_ground_diff_1k.jpg')
-const armBushTexture = loaderTexture.load('/textures/bush/leaves_forest_ground_1k/leaves_forest_ground_arm_1k.jpg')
-const normalBushTexture = loaderTexture.load('/textures/bush/leaves_forest_ground_1k/leaves_forest_ground_nor_gl_1k.jpg')
+const colorBushTexture = loaderTexture.load('/textures/bush/leaves_forest_ground_1k/leaves_forest_ground_diff_1k.webp')
+const armBushTexture = loaderTexture.load('/textures/bush/leaves_forest_ground_1k/leaves_forest_ground_arm_1k.webp')
+const normalBushTexture = loaderTexture.load('/textures/bush/leaves_forest_ground_1k/leaves_forest_ground_nor_gl_1k.webp')
 
 colorBushTexture.colorSpace = THREE.SRGBColorSpace
 
@@ -136,9 +137,9 @@ armBushTexture.wrapS = THREE.RepeatWrapping
 normalBushTexture.wrapS = THREE.RepeatWrapping
 
 // Tumulos (Grave)
-const colorGraveTexture = loaderTexture.load('/textures/grave/plastered_stone_wall_1k/plastered_stone_wall_diff_1k.jpg')
-const armGraveTexture = loaderTexture.load('/textures/grave/plastered_stone_wall_1k/plastered_stone_wall_arm_1k.jpg')
-const normalGraveTexture = loaderTexture.load('/textures/grave/plastered_stone_wall_1k/plastered_stone_wall_nor_gl_1k.jpg')
+const colorGraveTexture = loaderTexture.load('/textures/grave/plastered_stone_wall_1k/plastered_stone_wall_diff_1k.webp')
+const armGraveTexture = loaderTexture.load('/textures/grave/plastered_stone_wall_1k/plastered_stone_wall_arm_1k.webp')
+const normalGraveTexture = loaderTexture.load('/textures/grave/plastered_stone_wall_1k/plastered_stone_wall_nor_gl_1k.webp')
 
 colorGraveTexture.colorSpace = THREE.SRGBColorSpace
 
@@ -155,13 +156,13 @@ armGraveTexture.wrapT = THREE.RepeatWrapping
 normalGraveTexture.wrapT = THREE.RepeatWrapping
 
 // Porta (Door)
-const alphaDoorTexture = loaderTexture.load('/textures/door/alpha.jpg')
-const colorDoorTexture = loaderTexture.load('/textures/door/color.jpg')
-const ambientOcclusionDoorTexture = loaderTexture.load('/textures/door/ambientOcclusion.jpg')
-const heightDoorTexture = loaderTexture.load('/textures/door/height.jpg')
-const metalDoorTexture = loaderTexture.load('/textures/door/metalness.jpg')
-const roughnessDoorTexture = loaderTexture.load('/textures/door/roughness.jpg')
-const normalDoorTexture = loaderTexture.load('/textures/door/normal.jpg')
+const alphaDoorTexture = loaderTexture.load('/textures/door/alpha.webp')
+const colorDoorTexture = loaderTexture.load('/textures/door/color.webp')
+const ambientOcclusionDoorTexture = loaderTexture.load('/textures/door/ambientOcclusion.webp')
+const heightDoorTexture = loaderTexture.load('/textures/door/height.webp')
+const metalDoorTexture = loaderTexture.load('/textures/door/metalness.webp')
+const roughnessDoorTexture = loaderTexture.load('/textures/door/roughness.webp')
+const normalDoorTexture = loaderTexture.load('/textures/door/normal.webp')
 
 colorDoorTexture.colorSpace = THREE.SRGBColorSpace
 
@@ -405,6 +406,45 @@ for(const grave of graves.children) {
 }
 
 // Mapping
+directionLight.shadow.mapSize.width = 256
+directionLight.shadow.mapSize.height = 256
+directionLight.shadow.camera.top = 8
+directionLight.shadow.camera.right = 8
+directionLight.shadow.camera.bottom = -8
+directionLight.shadow.camera.left = -8
+directionLight.shadow.camera.near = 1
+directionLight.shadow.camera.far =20
+
+ghost1.shadow.mapSize.width = 256
+ghost1.shadow.mapSize.height = 256
+ghost1.shadow.camera.far = 10
+
+ghost2.shadow.mapSize.width = 256
+ghost2.shadow.mapSize.height = 256
+ghost2.shadow.camera.far = 10
+
+ghost3.shadow.mapSize.width = 256
+ghost3.shadow.mapSize.height = 256
+ghost3.shadow.camera.far = 10
+
+/**
+ * Sky (Céu)
+ */
+const sky = new Sky()
+sky.scale.set(100, 100, 100)
+scene.add(sky)
+
+sky.material.uniforms['turbidity'].value = 10
+sky.material.uniforms['rayleigh'].value = 3
+sky.material.uniforms['mieCoefficient'].value = 0.1
+sky.material.uniforms['mieDirectionalG'].value = 0.95
+sky.material.uniforms['sunPosition'].value.set(0.3, -0.038, -0.95)
+
+/**
+ * Fog (Neblina)
+ */
+// scene.fog = new THREE.Fog('#ffffff', 1, 13)
+scene.fog = new THREE.FogExp2('#04343f', 0.1)
 
 // Timer
 const timer = new Timer()
