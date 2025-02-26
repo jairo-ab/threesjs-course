@@ -36,6 +36,16 @@ const textureLoader = new THREE.TextureLoader()
 // Scene
 const scene = new THREE.Scene()
 
+// Plane
+const plane_floor = new THREE.Mesh(
+    new THREE.PlaneGeometry(10, 10),
+    new THREE.MeshBasicMaterial({ color: 0xffffff })
+)
+
+plane_floor.rotation.x = -Math.PI * 0.5
+
+scene.add(plane_floor)
+
 // Sizes
 const sizes = {
   width: window.innerWidth,
@@ -59,7 +69,7 @@ window.addEventListener('resize', () => {
 // Camera
 const aspecRatio = sizes.width / sizes.height
 const camera = new THREE.PerspectiveCamera(75, aspecRatio, 0.1, 100)
-camera.position.z = 3
+camera.position.set(2, 3, 3)
 scene.add(camera)
 
 // Controls
